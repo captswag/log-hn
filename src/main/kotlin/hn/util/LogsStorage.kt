@@ -5,12 +5,12 @@ import java.io.PrintWriter
 import java.text.SimpleDateFormat
 import java.util.*
 
-private const val FILENAME = "logs.txt"
+private const val LOGS_FILENAME = "logs.txt"
 private const val DATE_FORMAT = "dd/MM/yyyy - hh:mm a"
 private const val DIVIDER = "-"
 
-class LocalStorage {
-    private val printWriter = PrintWriter(FileWriter(FILENAME, true), true)
+class LogsStorage {
+    private val printWriter = PrintWriter(FileWriter(LOGS_FILENAME, true), true)
 
     fun appendDate() {
         val simpleDateFormat = SimpleDateFormat(DATE_FORMAT)

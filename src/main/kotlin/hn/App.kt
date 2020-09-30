@@ -3,9 +3,12 @@
  */
 package hn
 
+import com.google.gson.Gson
 import hn.model.Story
+import hn.model.StoryApi
 import hn.network.NetworkUtils
-import hn.util.LocalStorage
+import hn.util.JsonStorage
+import hn.util.LogsStorage
 import kotlinx.coroutines.*
 
 private const val MAX_STORIES = 10
@@ -20,12 +23,19 @@ fun main() = runBlocking<Unit> {
         }
 
         val topTenStories = topStories.awaitAll()
-        val localStorage = LocalStorage()
+        val storyApiList = mutableListOf<StoryApi>() // This list is converted to JSON format
+        val localStorage = LogsStorage()
+        val jsonStorage = JsonStorage()
+
         localStorage.appendDate()
         topTenStories.forEachIndexed { index, story ->
             // Save this information along with the date and index in a txt file
             localStorage.saveString("${index + 1}. ${story.title}")
+            storyApiList.add(StoryApi(story.id, story.title)) // Populating the list here
         }
         localStorage.close()
+
+        jsonStorage.saveJson(Gson().toJson(storyApiList))
+        jsonStorage.close()
     }
 }
