@@ -11,7 +11,7 @@ import hn.util.JsonStorage
 import hn.util.LogsStorage
 import kotlinx.coroutines.*
 
-private const val MAX_STORIES = 10
+private const val MAX_STORIES = 20
 
 fun main() = runBlocking<Unit> {
     launch { // launch a new coroutine in the scope of runBlocking
